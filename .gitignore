@@ -1,0 +1,20 @@
+# Base de données MySQL
+mysql/
+*.dblwr
+
+# Fichiers système Windows
+*.Zone.Identifier
+
+# Environnement Symfony
+.env.local
+.env.*.local
+var/cache/
+var/log/
+vendor/
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/
