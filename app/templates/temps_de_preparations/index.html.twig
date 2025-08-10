@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TempsDePreparations index{% endblock %}
+
+{% block body %}
+    <h1>TempsDePreparations index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for temps_de_preparation in temps_de_preparations %}
+            <tr>
+                <td>{{ temps_de_preparation.id }}</td>
+                <td>{{ temps_de_preparation.name }}</td>
+                <td>{{ temps_de_preparation.description }}</td>
+                <td>
+                    <a href="{{ path('app_temps_de_preparations_show', {'id': temps_de_preparation.id}) }}">show</a>
+                    <a href="{{ path('app_temps_de_preparations_edit', {'id': temps_de_preparation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_temps_de_preparations_new') }}">Create new</a>
+{% endblock %}

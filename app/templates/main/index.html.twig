@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+<header>
+
+</header>
+    <main>
+        <section>
+            <form action="/" method="POST">
+<div>
+                <input type="search" name="search" placeholder="Rechercher une recette...">
+                <label for="search">Rechercher</label>
+</div>
+
+                <fieldset>
+                    <legend>Categorie</legend>
+                    {% for categorie in categories %}
+                        <div>
+                        <input type="checkbox" name="categories" value="{{ categorie.id }}" id="categorie">
+                        <label for="categorie">{{ categorie.name }}</label>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+                <fieldset>
+                    <legend>Temps de Preparations</legend>
+                    {% for tempsDePreparation in tempsDePreparations %}
+                        <div>
+                            <input type="checkbox" name="tempsDePreparation" value="{{ tempsDePreparation.id }}" id="tempsDePreparation">
+                            <label for="tempsDePreparation">{{ tempsDePreparation.name }}</label>
+                        </div>
+                    {% endfor %}
+                    <fieldset>
+                        <legend>Difficulté</legend>
+                        {% for difficulte in difficulte %}
+                        <div>
+                            <input type="checkbox" name="difficulte" value="{{difficulte.id}}" id="difficulte">
+                            <label for="difficulte">{{ difficulte.name }}</label>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+
+                </fieldset>
+            </form>
+        </section>
+
+    </main>
+    <footer>
+
+    </footer>
+{% endblock %}

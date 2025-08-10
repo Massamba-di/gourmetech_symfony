@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\DifficulteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: DifficulteRepository::class)]
+class Difficulte
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    /**
+     * @var Collection<int, Recettes>
+     */
+    #[ORM\OneToMany(targetEntity: Recettes::class, mappedBy: 'difficulte')]
+    private Collection $recette;
+
+    public function __construct()
+    {
+        $this->recette = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recettes>
+     */
+    public function getRecette(): Collection
+    {
+        return $this->recette;
+    }
+
+    public function addRecette(Recettes $recette): static
+    {
+        if (!$this->recette->contains($recette)) {
+            $this->recette->add($recette);
+            $recette->setDifficulte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recettes $recette): static
+    {
+        if ($this->recette->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getDifficulte() === $this) {
+                $recette->setDifficulte(null);
+            }
+        }
+
+        return $this;
+    }
+}
