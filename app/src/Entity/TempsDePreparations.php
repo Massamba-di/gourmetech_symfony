@@ -90,4 +90,8 @@ class TempsDePreparations
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->name ?? 'Temps de préparation #' . $this->id;
+    }
 }
