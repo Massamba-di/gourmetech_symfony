@@ -52,29 +52,47 @@
 
             <div  class="row mb-3">
                 {% for recette in recettes %}
-                    <article data-nom="{{ recette.titre }}"
-                             data-categorie="{{ recette.categories.id }}"
-                             data-temps="{{ recette.tempsDePreparations.id }}"
-                             data-difficulte="{{ recette.difficulte.id }}"
-                             class="  col-12  col-md-6 col-lg-3 d-flex flex-column gap-3 position-relative mb-5 rounded-3 border border-light shadow p-1 " style="transition: transform 0.3s ease;"
-                              onmouseover="this.style.transform='translateY(-5px)';"
-                              onmouseout="this.style.transform='translateY(0)';">
+                    <article
+                        data-id="{{ recette.id }}"
+                        data-nom="{{ recette.titre }}"
+                        data-categorie="{{ recette.categories.name }}"
+                        data-temps="{{ recette.tempsDePreparations.name }}"
+                        data-difficulte="{{ recette.difficulte.name }}"
+                        data-image="{{ asset('uploads/recettes/' ~ recette.images) }}"
+                        data-prix="{{ recette.prix }}"
+                        class="col-12 col-md-6 col-lg-3 d-flex flex-column gap-3 position-relative mb-5 rounded-3 border border-light shadow p-1"
+                        style="transition: transform 0.3s ease;"
+                        onmouseover="this.style.transform='translateY(-5px)';"
+                        onmouseout="this.style.transform='translateY(0)';">
 
-                            <img src="{{ asset('uploads/recettes/' ~ recette.images) }}" alt="{{ recette.titre }}" class="align-middle rounded-3 w-100">
-
+                        <img src="{{ asset('uploads/recettes/' ~ recette.images) }}" alt="{{ recette.titre }}" class="align-middle rounded-3 w-100">
                         <h2 class="fw-bold text-center">{{ recette.titre }}</h2>
-                        <p class="text-center text-black  fs-1">{{ recette.prix }}€</p>
+                        <p class="text-center text-black fs-1">{{ recette.prix }}€</p>
+
                         <div>
-                        <span class=" text-white  rounded-4 p-2"style="background-color: #e97D21;">{{ recette.categories.name }}</span>
-                        <span class="text-white   rounded-4 p-2" style="background-color: #56B86C;">{{ recette.tempsDePreparations.name }}</span>
-                        <span class="text-white  rounded-4 p-2" style="background-color: #2182E9;">{{ recette.difficulte.name }}</span>
+                            <span class="text-white rounded-4 p-2" style="background-color: #e97D21;">{{ recette.categories.name }}</span>
+                            <span class="text-white rounded-4 p-2" style="background-color: #56B86C;">{{ recette.tempsDePreparations.name }}</span>
+                            <span class="text-white rounded-4 p-2" style="background-color: #2182E9;">{{ recette.difficulte.name }}</span>
                         </div>
-                        <a href="{{ path('app_recettes_show', { id: recette.id }) }}" class="text-center border border text-white mb-2 rounded-2  text-decoration-none"style="background-color: #e97D21;">Voir la Recette</a>
+
+                        <a href="{{ path('app_recettes_show', { id: recette.id }) }}"
+                           class="text-center border text-white mb-2 rounded-2 text-decoration-none"
+                           style="background-color: #e97D21;">Voir la Recette</a>
+
                         <div class="position-absolute top-0 end-0 m-4 rounded-circle bg-white p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-suit-heart-fill " viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="16"
+                                 height="16"
+                                 fill="grey"
+                                 class="bi bi-suit-heart-fill"
+                                 viewBox="0 0 16 16"
+                                 data-active="false"
+                                 style="cursor: pointer;">
                                 <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1"/>
                             </svg>
                         </div>
+
+
                     </article>
                 {% endfor %}
             </div>

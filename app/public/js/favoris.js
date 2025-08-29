@@ -2,7 +2,6 @@ const favoris = document.querySelectorAll('svg');
 
 for (const favori of favoris) {
     favori.addEventListener('click', function () {
-        // Toggle la couleur
         if (favori.getAttribute("data-active") === "true") {
             favori.setAttribute("data-active", "false");
             favori.style.fill = "gray";
@@ -10,28 +9,32 @@ for (const favori of favoris) {
             favori.setAttribute("data-active", "true");
             favori.style.fill = "red";
 
-            // On remonte jusqu'à l'article parent du SVG
-            const article = favori.closest("article");
+            const article = favori.closest('article');
 
             if (article) {
-                const articleId = article.getAttribute("data-id"); // mets un data-id dans ton twig
-                const articleNom = article.getAttribute("data-nom");
+                const favoriData = {
+                    id: article.dataset.id,
+                    nom: article.dataset.nom,
+                    image: article.dataset.image,
+                    prix: article.dataset.prix,
+                    categorie: article.dataset.categorie,
+                    temps: article.dataset.temps,
+                    difficulte: article.dataset.difficulte
+                };
 
-                // On crée un objet favori
-                const favoriData = { id: articleId, nom: articleNom };
 
-                // On récupère les favoris déjà dans le localStorage
-                let favorisStockes = JSON.parse(localStorage.getItem("favoris")) || [];
+                // LocalStorage
+                let favorisStockes = JSON.parse(localStorage.getItem("favoriData")) || [];
 
-                // On ajoute le nouveau favori
-                favorisStockes.push(favoriData);
-
-                // On sauvegarde
-                localStorage.setItem("favoris", JSON.stringify(favorisStockes));
-
-                alert("Recette ajouté aux favoris !");
+                // Évite les doublons
+                if (!favorisStockes.some(f => f.id === favoriData.id)) {
+                    favorisStockes.push(favoriData);
+                    localStorage.setItem("favoriData", JSON.stringify(favorisStockes));
+                    alert("Recette ajoutée aux favoris !");
+                } else {
+                    alert("Cette recette est déjà dans vos favoris !");
+                }
             }
         }
     });
 }
-
